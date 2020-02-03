@@ -13,7 +13,19 @@ def tracking():
     """Endpoint for receiving webhook from bitbucket."""
     if request.method == "POST":
         data = request.get_json()
-        print data["webhookEvent"]
+        if data["webhookEvent"] == "jira:issue_created":
+          summary = data["issue"]["fields"]["summary"]
+          description = data["issue"]["fields"]["description"]
+          idIssue = data["issue"]["id"]
+          key = data["issue"]["key"]
+          print "Summary:"
+          print summary
+          print "Description:"
+          print description
+          print "Id issue:"
+          print idIssue
+          print "Key issue:"
+          print key
         return "OK"
     else:
         pprint(vars(request))
